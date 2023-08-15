@@ -51,6 +51,6 @@ I'm Fadi, and i like to **write code**.
 
 <p align="center">
     <i>
-        Software and cathedrals are much the same; first we build them, then we pray.
+        I bend technology to my will; what's your superpower?
     </i>
 </p>
