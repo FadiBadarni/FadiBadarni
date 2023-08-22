@@ -34,7 +34,7 @@ I'm Fadi, and i like to **write code**.
 <h2 align="center">🔥 Stats</h2>
 <p align="center">
   <a>
-    <img src="https://github-readme-streak-stats.herokuapp.com/?user=FadiBadarni&hide_border=true&card_width=338&theme=tokyonight" alt="Fadi's Github Stats" />
+    <img src="https://github-readme-streak-stats.herokuapp.com/?user=FadiBadarni&theme=tokyonight&card_width=300&hide_current_streak=true&hide_longest_streak=true" alt="Fadi's Github Stats" />
   </a>
 
 </p>
