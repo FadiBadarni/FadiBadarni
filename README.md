@@ -10,7 +10,7 @@ Merging creativity and code to craft digital experiences.
 I'm Fadi, a final-year software engineering student at SCE College, deeply passionate about devising user-friendly and elegant digital solutions from complex challenges. My academic journey has been a blend of theory and hands-on experience, always aimed at staying ahead of the tech curve.
 
 - 🌱 **Expanding Skills:** Currently mastering TypeScript, advanced React techniques, and exploring the realms of Next.js and Angular to broaden my front-end development skills.
-- 🚀 **Notable Projects:** [El-Yael Website](https://elyael.com), [V-Warehouse](https://github.com/FadiBadarni/V-Warehouse)
+- 🚀 **Notable Projects:** [El-Yael Website](https://elyael.com), [Qahwa Geek Website](http://qahwageek.com/)
 - 📫 **Reach Out:** [LinkedIn](https://www.linkedin.com/in/fadibadarni/) | [Portfolio](https://www.devfadi.com)
 
 ---
