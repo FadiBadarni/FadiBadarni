@@ -240,10 +240,10 @@ export function renderLedger({ theme, fonts, groups, cells, groupHours, notes, d
     if (!groupHours[g.id]) continue;
     out.push(`<rect x="${f1(x)}" y="${f1(y - 9)}" width="9" height="9" fill="${c.groups[g.id]}"/>`);
     text("m", x + 16, y, g.title, { size: 12 });
-    const hx = x + 16 + measure("mono", 12, g.title) + 10;
+    const hx = x + 16 + measure("label", 12, g.title) + 10;
     const hours = `${fmt(groupHours[g.id])} h`;
     text("m", hx, y, hours, { size: 12, fill: c.muted });
-    x = hx + measure("mono", 12, hours) + 34;
+    x = hx + measure("label", 12, hours) + 34;
   }
   y += 28;
   text("m", 0, y, `Last twelve months  ·  ${stats.activeDays} days with commits  ·  ${stats.repos} repositories`, {
@@ -255,7 +255,7 @@ export function renderLedger({ theme, fonts, groups, cells, groupHours, notes, d
     "Each mark is one clock hour in which commits landed on a main branch. Around the dial: the last twelve months, " +
     "ending today. Outward: the hour of the day, from 06:00 at the centre to 06:00 next morning. Notes and figures are " +
     "computed from the same data. Redrawn every night.";
-  for (const line of wrap("mono", 10.5, note, W)) {
+  for (const line of wrap("label", 10.5, note, W)) {
     text("m", 0, y, line, { size: 10.5, fill: c.muted });
     y += 16;
   }
@@ -268,9 +268,9 @@ export function renderLedger({ theme, fonts, groups, cells, groupHours, notes, d
     face("display", "display") +
     face("text", "text") +
     face("italic", "italic", "italic") +
-    face("mono", "mono") +
-    `.d{font-family:L-display,Georgia,serif}.t{font-family:L-text,Georgia,serif}` +
-    `.i{font-family:L-italic,Georgia,serif;font-style:italic}.m{font-family:L-mono,ui-monospace,monospace}`;
+    face("label", "label") +
+    `.d{font-family:L-display,system-ui,sans-serif}.t{font-family:L-text,system-ui,sans-serif}` +
+    `.i{font-family:L-italic,system-ui,sans-serif;font-style:italic}.m{font-family:L-label,system-ui,sans-serif}`;
   const summary =
     `Fadi Badarni. I build websites and apps for businesses. A dial of the last twelve months: ` +
     `${fmt(stats.hours)} clock hours in which commits landed, across ${stats.repos} repositories. ` +
