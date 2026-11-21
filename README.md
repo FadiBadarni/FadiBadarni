@@ -1,93 +1,15 @@
-<div align="center">
-
-
-
-<br/>
-
-<a href="https://devfadi.com">
-<img src="https://img.shields.io/badge/devfadi.com-0d1117?style=for-the-badge&logo=googlechrome&logoColor=white"/>
-</a>
-<a href="https://linkedin.com/in/fadibadarni">
-<img src="https://img.shields.io/badge/linkedin-0d1117?style=for-the-badge&logo=linkedin&logoColor=white"/>
-</a>
-<a href="mailto:fadybd1@gmail.com">
-<img src="https://img.shields.io/badge/email-0d1117?style=for-the-badge&logo=gmail&logoColor=white"/>
-</a>
-
-<br/><br/>
-
-</div>
-
-<!-- Bento Grid -->
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### 🛠 &nbsp;Stack
-
-<br/>
-
-<img src="https://skillicons.dev/icons?i=ts,java,python,react,nextjs,spring&theme=dark" />
-<br/><br/>
-<img src="https://skillicons.dev/icons?i=postgres,docker,aws,tailwind,fastapi,git&theme=dark" />
-
-<br/>
-
-</td>
-<td width="50%" valign="top">
-
-### 👤 &nbsp;About
-
-<br/>
-
-Software engineer from Israel building full-stack products with a focus on clean architecture and user-first design.
-
-B.Sc. Software Engineering @ **SCE**
-
-Passionate about crafting elegant solutions to complex problems — from scalable backends to polished user interfaces.
-
-<br/>
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-### 📊 &nbsp;GitHub
-
-<br/>
-
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats-eight.vercel.app?user=FadiBadarni&theme=black-ice&hide_border=true&background=0d1117&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&sideLabels=9f9f9f&sideNums=ffffff&currStreakNum=ffffff&dates=9f9f9f" />
-  <img src="https://github-readme-streak-stats-eight.vercel.app?user=FadiBadarni&theme=black-ice&hide_border=true&background=0d1117" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="assets/ledger-dark.svg">
+  <img src="assets/ledger-light.svg" width="100%" alt="Fadi Badarni. I build websites and apps for businesses. A drawing of the last twelve months of work: one row per project, one tick per day with commits, redrawn every night.">
 </picture>
 
-</td>
-<td width="50%" valign="top">
+### Selected work
 
-### ⚡ &nbsp;Now
+- [Prime Menus](https://prime-menus.com): QR menus for restaurants. Guests scan a code and get a menu that is always current; menus arrive as photos or PDFs and AI builds them.
+- [MoviGo](https://apps.apple.com/il/app/movigo/id6770183537): a free iPhone app for picking a cinema screening in Israel, with showtimes, distance and live seat occupancy across five chains.
+- [Sijil](https://sijil-memorial.vercel.app): a public register of homicide victims in Arab society in Israel, one record per person, drawn from the Arabic and Hebrew press with the sources behind every name. [Code](https://github.com/FadiBadarni/israel-homicides).
+- [iris](https://github.com/FadiBadarni/iris): an MCP server and CLI that grounds AI coding assistants in a Next.js and Tailwind project's design system.
 
-<br/>
+[Prime Systems](https://www.prime-systems.co.il) · [LinkedIn](https://linkedin.com/in/fadibadarni) · [Email](mailto:fadybd1@gmail.com)
 
-- 🔭 &nbsp;Building full-stack products with **Next.js** · **Spring Boot** · **FastAPI**
-- 🌱 &nbsp;Exploring AI pipelines & multilingual NLP
-- 🧩 &nbsp;Interested in edtech, developer tooling & clean architecture
-- 🌍 &nbsp;Arabic · Hebrew · English
-
-<br/>
-
-</td>
-</tr>
-</table>
-
-<br/>
-
-<div align="center">
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0d1117&height=1&section=footer" width="100%"/>
-
-<br/>
-<img src="https://raw.githubusercontent.com/FadiBadarni/FadiBadarni/output/github-snake-dark.svg" width="100%"/>
-<sub>Building things that matter.</sub>
-
-</div>
+<sub>The drawing is rebuilt every night by <a href="ledger">a small script</a> from commit times across my repositories, public and private. Only dates and hours are read. The line under "This week" is written by Claude from the week's commit subjects; client work is described by its label alone.</sub>
