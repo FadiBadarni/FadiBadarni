@@ -59,7 +59,11 @@ export function writeWeekLine({ rows, weekStart, privateWords, glyphs }) {
       "--no-session-persistence",
       "--output-format", "text",
     ];
-    const res = spawnSync("claude", args, { input, encoding: "utf8", shell: win, timeout: 180_000 });
+    // The GitHub token can read private code; the CLI (installed fresh from npm each
+    // night) has no use for it, so it never sees it.
+    const env = { ...process.env };
+    delete env.LEDGER_TOKEN;
+    const res = spawnSync("claude", args, { input, env, encoding: "utf8", shell: win, timeout: 180_000 });
     if (res.status !== 0) {
       console.warn(`week line: claude exited with ${res.status}; keeping the previous line`);
       return null;
