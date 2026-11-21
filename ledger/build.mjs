@@ -46,6 +46,27 @@ const rows = buildRows(config, repos, days, dayKey, hourKey);
 const { cells, groupHours } = buildCells(rows, config.groups.map((g) => g.id));
 const notes = buildStory({ rows, cells, days });
 
+const inWindow = (c) => dayKey(c.date) >= days[0];
+// Hours are counted once even when several projects got commits in the same hour.
+const stats = {
+  hours: cells.length,
+  repos: repos.filter((r) => r.commits.some(inWindow)).length,
+  activeDays: days.filter((_, i) => rows.some((r) => r.counts[i] > 0)).length,
+};
+
+// A token that lost access to the private repositories (wrong scope, expired) would
+// silently redraw a near-empty year. Stop instead and leave the last drawing up.
+const statsPath = join(here, "stats.json");
+const previous = existsSync(statsPath) ? readJson(statsPath) : null;
+if (previous && stats.hours < previous.hours * 0.5 && process.env.LEDGER_FORCE !== "1") {
+  console.error(
+    `ledger: this run sees ${stats.hours} hours across ${stats.repos} repositories, last run saw ` +
+      `${previous.hours} across ${previous.repos}. Not redrawing: check that LEDGER_TOKEN can read ` +
+      `all repositories (Contents: read-only). Set LEDGER_FORCE=1 if the drop is real.`,
+  );
+  process.exit(1);
+}
+
 // Words the week line may never contain: the parts of client repository names
 // (minus words their public label already uses), plus anything in the secret.
 const byId = new Map(repos.map((r) => [r.id, r]));
@@ -74,20 +95,13 @@ if (!process.argv.includes("--no-week")) {
 const age = week ? (Date.parse(today) - Date.parse(week.to)) / 864e5 : Infinity;
 const weekText = age <= 1 ? week.text : null;
 
-const inWindow = (c) => dayKey(c.date) >= days[0];
-// Hours are counted once even when several projects got commits in the same hour.
-const stats = {
-  hours: cells.length,
-  repos: repos.filter((r) => r.commits.some(inWindow)).length,
-  activeDays: days.filter((_, i) => rows.some((r) => r.counts[i] > 0)).length,
-};
-
 const assets = join(here, "..", "assets");
 mkdirSync(assets, { recursive: true });
 for (const theme of ["dark", "light"]) {
   const svg = renderLedger({ theme, fonts, groups: config.groups, cells, groupHours, notes, days, weekText, stats });
   writeFileSync(join(assets, `ledger-${theme}.svg`), svg);
 }
+writeFileSync(statsPath, `${JSON.stringify({ ...stats, at: today }, null, 2)}\n`);
 console.log(
   `ledger: ${stats.hours} hours with commits, ${rows.length} rows, ${stats.activeDays} active days, ` +
     `week line ${weekText ? "shown" : "hidden"}`,

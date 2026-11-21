@@ -63,12 +63,17 @@ export function writeWeekLine({ rows, weekStart, privateWords, glyphs }) {
     // night) has no use for it, so it never sees it.
     const env = { ...process.env };
     delete env.LEDGER_TOKEN;
-    const res = spawnSync("claude", args, { input, env, encoding: "utf8", shell: win, timeout: 180_000 });
-    if (res.status !== 0) {
-      console.warn(`week line: claude exited with ${res.status}; keeping the previous line`);
-      return null;
+    // Two tries: a sentence that runs long or trips the word check gets one more go.
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      const res = spawnSync("claude", args, { input, env, encoding: "utf8", shell: win, timeout: 180_000 });
+      if (res.status !== 0) {
+        console.warn(`week line: claude exited with ${res.status}; keeping the previous line`);
+        return null;
+      }
+      const line = check(res.stdout, privateWords, glyphs);
+      if (line) return line;
     }
-    return check(res.stdout, privateWords, glyphs);
+    return null;
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
@@ -78,7 +83,7 @@ export function writeWeekLine({ rows, weekStart, privateWords, glyphs }) {
 // itself: Actions logs of a public repository are public.
 function check(raw, privateWords, glyphs) {
   let s = raw.trim().replace(/\s+/g, " ").replace(/^["“']+|["”']+$/g, "");
-  if (s.length < 30 || s.length > 170) {
+  if (s.length < 30 || s.length > 190) {
     console.warn(`week line: rejected, ${s.length} characters`);
     return null;
   }
