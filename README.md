@@ -1,6 +1,6 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/ledger-dark.svg">
-  <img src="assets/ledger-light.svg" width="100%" alt="Fadi Badarni. I build websites and apps for businesses. A drawing of the last twelve months of work: one row per project, one tick per day with commits, redrawn every night.">
+  <img src="assets/ledger-light.svg" width="100%" alt="Fadi Badarni. I build websites and apps for businesses. A dial of the last twelve months: every clock hour in which my commits landed, coloured by client work, products, games and tools, redrawn every night.">
 </picture>
 
 ### Selected work

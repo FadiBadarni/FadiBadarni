@@ -8,7 +8,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { collectCommits } from "./github.mjs";
-import { buildRows, dayKeyFn, hourKeyFn, windowDays } from "./rows.mjs";
+import { buildCells, buildRows, dayKeyFn, hourKeyFn, windowDays } from "./rows.mjs";
 import { renderLedger } from "./render.mjs";
 import { writeWeekLine } from "./week.mjs";
 
@@ -18,7 +18,13 @@ const config = readJson(join(here, "config.json"));
 const fonts = readJson(join(here, "fonts", "fonts.json"));
 const weekPath = join(here, "week.json");
 
-const dayKey = dayKeyFn(config.timezone);
+// A working day runs 06:00 to 06:00, so a commit at 02:00 belongs to the evening before.
+const DAY_START_HOURS = 6;
+const shift = (date) => new Date(new Date(date).getTime() - DAY_START_HOURS * 3600e3);
+const baseDay = dayKeyFn(config.timezone);
+const baseHour = hourKeyFn(config.timezone);
+const dayKey = (date) => baseDay(shift(date));
+const hourKey = (date) => baseHour(shift(date)); // hour 00 = 06:00 on the clock
 const today = dayKey(new Date());
 const days = windowDays(today);
 const weekStart = days.length - 7;
@@ -35,7 +41,8 @@ if (cache && existsSync(cache)) {
   if (cache) writeFileSync(cache, JSON.stringify(repos));
 }
 
-const rows = buildRows(config, repos, days, dayKey, hourKeyFn(config.timezone));
+const rows = buildRows(config, repos, days, dayKey, hourKey);
+const { cells, groupHours } = buildCells(rows, config.groups.map((g) => g.id));
 
 // Words the week line may never contain: the parts of client repository names
 // (minus words their public label already uses), plus anything in the secret.
@@ -68,7 +75,7 @@ const weekText = age <= 1 ? week.text : null;
 const inWindow = (c) => dayKey(c.date) >= days[0];
 // Hours are counted once even when several projects got commits in the same hour.
 const stats = {
-  hours: new Set(rows.flatMap((r) => r.hoursByDay.flatMap((s) => [...s]))).size,
+  hours: cells.length,
   repos: repos.filter((r) => r.commits.some(inWindow)).length,
   activeDays: days.filter((_, i) => rows.some((r) => r.counts[i] > 0)).length,
 };
@@ -76,7 +83,7 @@ const stats = {
 const assets = join(here, "..", "assets");
 mkdirSync(assets, { recursive: true });
 for (const theme of ["dark", "light"]) {
-  const svg = renderLedger({ theme, fonts, groups: config.groups, rows, days, weekStart, weekText, stats });
+  const svg = renderLedger({ theme, fonts, groups: config.groups, cells, groupHours, days, weekText, stats });
   writeFileSync(join(assets, `ledger-${theme}.svg`), svg);
 }
 console.log(

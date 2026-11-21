@@ -36,13 +36,14 @@ export function buildRows(config, repos, days, dayKey, hourKey) {
   const used = new Set();
 
   const make = (label, group, summarize, list) => {
-    const hoursByDay = days.map(() => new Set());
+    const hoursByDay = days.map(() => new Map()); // hour key -> commits in that hour
     const commits = [];
     for (const repo of list) {
       for (const c of repo.commits) {
         const i = index.get(dayKey(c.date));
         if (i === undefined) continue;
-        hoursByDay[i].add(hourKey(c.date));
+        const h = hourKey(c.date);
+        hoursByDay[i].set(h, (hoursByDay[i].get(h) ?? 0) + 1);
         commits.push({ day: i, subject: c.subject });
       }
     }
@@ -66,4 +67,30 @@ export function buildRows(config, repos, days, dayKey, hourKey) {
   if (unnamed.length) rows.push(make("Other private projects", "other", false, unnamed));
 
   return rows.filter((r) => r.total > 0);
+}
+
+// One cell per (day, hour) with commits, coloured by the group that landed the most
+// commits in it; ties go to the group listed first. Also counts each group's hours.
+export function buildCells(rows, groupOrder) {
+  const cells = new Map();
+  for (const row of rows) {
+    row.hoursByDay.forEach((hours, day) => {
+      for (const [key, n] of hours) {
+        const id = `${day}:${Number(key.slice(-2))}`;
+        const groups = cells.get(id) ?? new Map();
+        groups.set(row.group, (groups.get(row.group) ?? 0) + n);
+        cells.set(id, groups);
+      }
+    });
+  }
+  const groupHours = Object.fromEntries(groupOrder.map((g) => [g, 0]));
+  const out = [...cells].map(([id, groups]) => {
+    const [day, hour] = id.split(":").map(Number);
+    for (const g of groups.keys()) groupHours[g] += 1;
+    const [group] = [...groups].sort(
+      (a, b) => b[1] - a[1] || groupOrder.indexOf(a[0]) - groupOrder.indexOf(b[0]),
+    )[0];
+    return { day, hour, group };
+  });
+  return { cells: out, groupHours };
 }
