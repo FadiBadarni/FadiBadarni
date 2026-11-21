@@ -1,0 +1,39 @@
+name: ledger
+
+on:
+  schedule:
+    - cron: "30 20 * * *" # 22:30 in Israel in winter, 23:30 in summer
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: ledger
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install the Claude CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Draw
+        env:
+          LEDGER_TOKEN: ${{ secrets.LEDGER_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          LEDGER_PRIVATE_WORDS: ${{ secrets.LEDGER_PRIVATE_WORDS }}
+        run: node ledger/build.mjs
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets ledger/week.json
+          git diff --cached --quiet || git commit -m "chore(ledger): nightly redraw"
+          git push
