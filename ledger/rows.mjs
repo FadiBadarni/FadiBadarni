@@ -35,7 +35,8 @@ export function buildRows(config, repos, days, dayKey, hourKey) {
   const byId = new Map(repos.map((r) => [r.id, r]));
   const used = new Set();
 
-  const make = (label, group, summarize, list) => {
+  // `retired` projects still count on the dial (the hours happened) but get no notes.
+  const make = (label, group, summarize, list, retired = false) => {
     const hoursByDay = days.map(() => new Map()); // hour key -> commits in that hour
     const commits = [];
     for (const repo of list) {
@@ -52,13 +53,13 @@ export function buildRows(config, repos, days, dayKey, hourKey) {
     const total = counts.reduce((a, b) => a + b, 0);
     const created = list.map((r) => r.created).filter(Boolean).sort()[0] ?? null;
     const firstDay = counts.findIndex((n) => n > 0);
-    return { label, group, summarize, counts, hoursByDay, commits, total, created, firstDay };
+    return { label, group, summarize, retired, counts, hoursByDay, commits, total, created, firstDay };
   };
 
   const rows = config.rows.map((row) => {
     const list = row.repos.map((id) => byId.get(id)).filter(Boolean);
     list.forEach((r) => used.add(r.id));
-    return make(row.label, row.group, row.summarize, list);
+    return make(row.label, row.group, row.summarize, list, row.retired === true);
   });
 
   // Repositories nobody has labelled yet: public ones keep their own name,

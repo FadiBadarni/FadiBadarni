@@ -40,7 +40,9 @@ export function buildStory({ rows, cells, days, maxProjects = 4 }) {
   // First commits of my own projects whose repositories were created inside the
   // window, so "first" is literally true. Client work is left out.
   rows
-    .filter((r) => r.group !== "clients" && r.created && r.created.slice(0, 10) > days[0] && r.firstDay >= 0)
+    .filter(
+      (r) => r.group !== "clients" && !r.retired && r.created && r.created.slice(0, 10) > days[0] && r.firstDay >= 0,
+    )
     .sort((a, b) => b.total - a.total)
     .slice(0, maxProjects)
     .forEach((r) =>
