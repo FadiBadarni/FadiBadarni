@@ -44,7 +44,7 @@ export async function collectCommits({ token, since, skipRepo }) {
     const commits = (await all(url, `repository #${r.id}`))
       .filter((c) => c.author?.type !== "Bot" && !/\[bot\]/i.test(c.commit.author?.name ?? ""))
       .map((c) => ({ date: c.commit.author.date, subject: c.commit.message.split("\n")[0] }));
-    return { id: r.id, name: r.name, private: r.private, commits };
+    return { id: r.id, name: r.name, private: r.private, created: r.created_at, commits };
   };
 
   // Six repositories at a time keeps well inside GitHub's secondary rate limits.

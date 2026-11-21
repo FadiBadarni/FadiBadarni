@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import { collectCommits } from "./github.mjs";
 import { buildCells, buildRows, dayKeyFn, hourKeyFn, windowDays } from "./rows.mjs";
 import { renderLedger } from "./render.mjs";
+import { buildStory } from "./story.mjs";
 import { writeWeekLine } from "./week.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -43,6 +44,7 @@ if (cache && existsSync(cache)) {
 
 const rows = buildRows(config, repos, days, dayKey, hourKey);
 const { cells, groupHours } = buildCells(rows, config.groups.map((g) => g.id));
+const notes = buildStory({ rows, cells, days });
 
 // Words the week line may never contain: the parts of client repository names
 // (minus words their public label already uses), plus anything in the secret.
@@ -83,7 +85,7 @@ const stats = {
 const assets = join(here, "..", "assets");
 mkdirSync(assets, { recursive: true });
 for (const theme of ["dark", "light"]) {
-  const svg = renderLedger({ theme, fonts, groups: config.groups, cells, groupHours, days, weekText, stats });
+  const svg = renderLedger({ theme, fonts, groups: config.groups, cells, groupHours, notes, days, weekText, stats });
   writeFileSync(join(assets, `ledger-${theme}.svg`), svg);
 }
 console.log(

@@ -50,7 +50,9 @@ export function buildRows(config, repos, days, dayKey, hourKey) {
     commits.sort((a, b) => b.day - a.day);
     const counts = hoursByDay.map((s) => s.size); // hours with commits, per day
     const total = counts.reduce((a, b) => a + b, 0);
-    return { label, group, summarize, counts, hoursByDay, commits, total };
+    const created = list.map((r) => r.created).filter(Boolean).sort()[0] ?? null;
+    const firstDay = counts.findIndex((n) => n > 0);
+    return { label, group, summarize, counts, hoursByDay, commits, total, created, firstDay };
   };
 
   const rows = config.rows.map((row) => {
