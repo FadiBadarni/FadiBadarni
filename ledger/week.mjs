@@ -18,7 +18,7 @@ Rules:
 - No numbers, emoji, quotation marks, exclamation marks or praise words.
 - Do not start with "This week" or with "Fadi".
 
-The register to aim for: "Rail physics and a new landing for Sled, Set, Go!, booking work for Client B, and a calmer menu editor in Prime Menus."
+The register to aim for: "Rail physics and a new landing for Sled, Set, Go!, booking work for Client A, and a calmer menu editor in Prime Menus."
 
 Reply with the sentence only.`;
 

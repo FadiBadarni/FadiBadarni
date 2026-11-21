@@ -9,11 +9,11 @@
     { "id": "other", "title": "Other" }
   ],
   "rows": [
-    { "label": "Client A · platform and API", "group": "clients", "summarize": false,
+    { "label": "Infinity · exam platforms and site", "group": "clients", "summarize": false,
       "repos": [1126772434, 1126771280, 1154795253, 1293921851, 1134431003, 1126773360] },
-    { "label": "Client B · web app and booking", "group": "clients", "summarize": false,
+    { "label": "Client A · web app and booking", "group": "clients", "summarize": false,
       "repos": [1464530357, 1073517846, 1074263674, 1086991192] },
-    { "label": "Client C · barbershop app", "group": "clients", "summarize": false,
+    { "label": "Client B · barbershop app", "group": "clients", "summarize": false,
       "repos": [1446652735, 1448727289] },
 
     { "label": "Prime Menus", "group": "products", "summarize": true, "repos": [1205102218, 1202263525] },
