@@ -1,0 +1,46 @@
+{
+  "timezone": "Asia/Jerusalem",
+  "profileRepo": "FadiBadarni",
+  "groups": [
+    { "id": "clients", "title": "Client work" },
+    { "id": "products", "title": "My products" },
+    { "id": "games", "title": "Games" },
+    { "id": "tools", "title": "Tools and experiments" },
+    { "id": "other", "title": "Other" }
+  ],
+  "rows": [
+    { "label": "Client A · platform and API", "group": "clients", "summarize": false,
+      "repos": [1126772434, 1126771280, 1154795253, 1293921851, 1134431003, 1126773360] },
+    { "label": "Client B · web app and booking", "group": "clients", "summarize": false,
+      "repos": [1464530357, 1073517846, 1074263674, 1086991192] },
+    { "label": "Client C · barbershop app", "group": "clients", "summarize": false,
+      "repos": [1446652735, 1448727289] },
+
+    { "label": "Prime Menus", "group": "products", "summarize": true, "repos": [1205102218, 1202263525] },
+    { "label": "Online stores (in progress)", "group": "products", "summarize": true, "repos": [1451860258] },
+    { "label": "MoviGo", "group": "products", "summarize": true, "repos": [1235179415, 1232964510] },
+    { "label": "WhatsApp booking assistant", "group": "products", "summarize": true, "repos": [1228534141, 1208455583] },
+    { "label": "Prime Delivery", "group": "products", "summarize": true, "repos": [1206789769] },
+    { "label": "Prime Systems site", "group": "products", "summarize": true, "repos": [1174291266] },
+    { "label": "Retail price comparison", "group": "products", "summarize": true,
+      "repos": [1377452591, 1181586445, 1184555810] },
+    { "label": "Gym scheduling app", "group": "products", "summarize": true, "repos": [1176267818] },
+    { "label": "Sijil · homicide register", "group": "products", "summarize": true, "repos": [1234347770] },
+    { "label": "Hebrew legal corpus", "group": "products", "summarize": true, "repos": [1224319272] },
+
+    { "label": "Sled, Set, Go!", "group": "games", "summarize": true, "repos": [1432268456, 1449131464] },
+    { "label": "Fawanees", "group": "games", "summarize": true, "repos": [1387774823, 1419543163] },
+    { "label": "Maana · word game", "group": "games", "summarize": true, "repos": [1345743729] },
+    { "label": "Food-shop game", "group": "games", "summarize": true, "repos": [1326478790] },
+    { "label": "Bring It Down", "group": "games", "summarize": true, "repos": [1302468826] },
+    { "label": "Unity prototypes", "group": "games", "summarize": true, "repos": [1248786940, 1247433614] },
+
+    { "label": "YouTube Shorts studio", "group": "tools", "summarize": true, "repos": [1445260938, 1445220843] },
+    { "label": "Brainstorm vault", "group": "tools", "summarize": true, "repos": [1378263397] },
+    { "label": "iris · MCP server", "group": "tools", "summarize": true, "repos": [1231037211] },
+    { "label": "Masar · job tracker", "group": "tools", "summarize": true, "repos": [1244241912] },
+    { "label": "Deep Atlas · ocean simulator", "group": "tools", "summarize": true, "repos": [1047495184] },
+    { "label": "Portfolio site", "group": "tools", "summarize": true, "repos": [1030143699] },
+    { "label": "Concept sites for local shops", "group": "tools", "summarize": true, "repos": [1341441644, 1339438762] }
+  ]
+}
